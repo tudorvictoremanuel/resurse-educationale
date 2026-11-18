@@ -17,6 +17,7 @@ assets/vendor/** linguist-vendored
 
 # Nu intră în arhivele „Source code” de pe GitHub (acolo e doar pluginul)
 /.github          export-ignore
+/demo             export-ignore
 /docs             export-ignore
 /scripts          export-ignore
 /.gitattributes   export-ignore

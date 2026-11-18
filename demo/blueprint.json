@@ -1,0 +1,46 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Cărți digitale Paralela 45 – demo",
+		"description": "Pluginul Cărți digitale, cu două cărți demo, un cont de profesor și panoul editurii.",
+		"author": "tudorvictoremanuel"
+	},
+	"landingPage": "/intra/",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/tudorvictoremanuel/resurse-educationale",
+				"ref": "main",
+				"refType": "branch"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "p45-carti-digitale"
+			},
+			"progress": {
+				"caption": "Instalez platforma"
+			}
+		},
+		{
+			"step": "unzip",
+			"zipFile": {
+				"resource": "vfs",
+				"path": "/wordpress/wp-content/plugins/p45-carti-digitale/demo/continut-demo.zip"
+			},
+			"extractToPath": "/tmp/p45-demo"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once '/wordpress/wp-load.php'; require '/wordpress/wp-content/plugins/p45-carti-digitale/demo/instaleaza-demo.php';",
+			"progress": {
+				"caption": "Pregătesc cărțile demo"
+			}
+		}
+	]
+}

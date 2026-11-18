@@ -6,6 +6,17 @@
 ![PHP 7.4+](https://img.shields.io/badge/PHP-7.4%2B-777bb4?logo=php&logoColor=white)
 ![Licență GPL-2.0-or-later](https://img.shields.io/badge/licen%C8%9B%C4%83-GPL--2.0--or--later-blue)
 
+### [▶ Încearcă demo-ul online](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/tudorvictoremanuel/resurse-educationale/main/demo/blueprint.json)
+
+Demo-ul pornește platforma direct în browser, fără instalare, prin [WordPress Playground](https://wordpress.org/playground/). Prima pornire durează cam un minut. Pe pagina de intrare apasă **Completează** la contul dorit:
+
+| Cont | Email / utilizator | Parolă | Ce vezi |
+|---|---|---|---|
+| Profesor | `profesor@demo.ro` | `Demo1234` | biblioteca, cititorul, Mod Tablă, desen și note |
+| Editura | `admin` | `password` | panoul WordPress: cărți, conversie din PDF, profesori |
+
+Demo-ul conține primele pagini din *Aventurile lui Pinocchio* și *Morcoveață*. Totul rulează în browserul vizitatorului și se resetează când închide pagina. Emailurile nu se trimit în demo.
+
 Plugin WordPress pentru **Editura Paralela 45**. Profesorul care cumpără cartea tipărită primește și varianta ei digitală, pe care o deschide **pe tabla interactivă din clasă**.
 
 Editura încarcă PDF-ul de tipar din panoul WordPress. Platforma îl transformă singură într-o carte care se răsfoiește, îi găsește cuprinsul și dă acces profesorilor odată cu comanda.
@@ -182,6 +193,7 @@ p45-carti-digitale/
 │   ├── model-import.csv     modelul pentru importul de comenzi
 │   └── vendor/              PDF.js 6.5 (Apache-2.0) și StPageFlip 2.0 (MIT)
 ├── CITESTE-MA.txt           ghidul de instalare pentru editură
+├── demo/                    demo-ul online: blueprint.json, cărțile demo, contul de test (nu intră în arhivă)
 ├── docs/capturi/            capturile din acest README (nu intră în arhivă)
 └── scripts/                 construirea arhivei pentru WordPress (nu intră în arhivă)
 ```
@@ -261,6 +273,8 @@ Scriptul pune în arhivă doar fișierele pluginului (fără `docs/`, `scripts/`
 1. Crește numărul versiunii în antetul din `p45-carti-digitale.php` (`Version`) și în constanta `P45CD_VERSION`.
 2. Publică un *Release* pe GitHub, de exemplu cu eticheta `v1.0.1`.
 3. GitHub Actions verifică sintaxa PHP, construiește arhiva și o atașează automat la versiune ([`.github/workflows/arhiva.yml`](.github/workflows/arhiva.yml)).
+
+Demo-ul online e descris în [`demo/blueprint.json`](demo/blueprint.json): instalează pluginul din ramura `main`, adaugă cărțile din `demo/continut-demo.zip` și contul de profesor (`demo/instaleaza-demo.php`).
 
 Pentru teste locale ajunge un WordPress cu SQLite (modulul *SQLite Database Integration*) pe serverul inclus în PHP (`php -S`).
 

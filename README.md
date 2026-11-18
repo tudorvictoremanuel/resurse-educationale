@@ -274,7 +274,7 @@ Scriptul pune în arhivă doar fișierele pluginului (fără `docs/`, `scripts/`
 2. Publică un *Release* pe GitHub, de exemplu cu eticheta `v1.0.1`.
 3. GitHub Actions verifică sintaxa PHP, construiește arhiva și o atașează automat la versiune ([`.github/workflows/arhiva.yml`](.github/workflows/arhiva.yml)).
 
-Demo-ul online e descris în [`demo/blueprint.json`](demo/blueprint.json): instalează pluginul din ramura `main`, adaugă cărțile din `demo/continut-demo.zip` și contul de profesor (`demo/instaleaza-demo.php`).
+Demo-ul online e descris în [`demo/blueprint.json`](demo/blueprint.json): instalează pluginul din `demo/p45-carti-digitale.zip`, adaugă cărțile din `demo/continut-demo.zip` și contul de profesor (`demo/instaleaza-demo.php`). După o modificare a pluginului, actualizează arhiva demo cu `bash scripts/construieste-zip.sh --demo`.
 
 Pentru teste locale ajunge un WordPress cu SQLite (modulul *SQLite Database Integration*) pe serverul inclus în PHP (`php -S`).
 

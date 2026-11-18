@@ -14,30 +14,43 @@
 		{
 			"step": "installPlugin",
 			"pluginData": {
-				"resource": "git:directory",
-				"url": "https://github.com/tudorvictoremanuel/resurse-educationale",
-				"ref": "main",
-				"refType": "branch"
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/tudorvictoremanuel/resurse-educationale/main/demo/p45-carti-digitale.zip"
 			},
 			"options": {
-				"activate": true,
-				"targetFolderName": "p45-carti-digitale"
+				"activate": true
 			},
 			"progress": {
 				"caption": "Instalez platforma"
 			}
 		},
 		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/mu-plugins/p45-demo.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/tudorvictoremanuel/resurse-educationale/main/demo/p45-demo.php"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/tmp/p45-instaleaza-demo.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/tudorvictoremanuel/resurse-educationale/main/demo/instaleaza-demo.php"
+			}
+		},
+		{
 			"step": "unzip",
 			"zipFile": {
-				"resource": "vfs",
-				"path": "/wordpress/wp-content/plugins/p45-carti-digitale/demo/continut-demo.zip"
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/tudorvictoremanuel/resurse-educationale/main/demo/continut-demo.zip"
 			},
 			"extractToPath": "/tmp/p45-demo"
 		},
 		{
 			"step": "runPHP",
-			"code": "<?php require_once '/wordpress/wp-load.php'; require '/wordpress/wp-content/plugins/p45-carti-digitale/demo/instaleaza-demo.php';",
+			"code": "<?php require_once '/wordpress/wp-load.php'; require '/tmp/p45-instaleaza-demo.php';",
 			"progress": {
 				"caption": "Pregătesc cărțile demo"
 			}

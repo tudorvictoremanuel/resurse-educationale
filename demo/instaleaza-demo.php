@@ -2,8 +2,9 @@
 /**
  * Pregătește demo-ul din WordPress Playground (rulează o singură dată, din demo/blueprint.json):
  * - două cărți demo, cu primele pagini din „Aventurile lui Pinocchio” și „Morcoveață”;
- * - un cont de profesor cu acces la ele și câteva adnotări pe Pinocchio;
- * - bannerul cu datele de intrare (mu-plugin).
+ * - un cont de profesor cu acces la ele și câteva adnotări pe Pinocchio.
+ *
+ * Caseta cu datele de intrare (p45-demo.php) o pune blueprint-ul în mu-plugins.
  *
  * Nu face parte din plugin și nu intră în arhiva de instalare.
  */
@@ -13,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $p45_demo_sursa = '/tmp/p45-demo';
-$p45_demo_aici  = __DIR__;
 
 if ( ! function_exists( 'p45cd_creeaza_dir_carte' ) ) {
 	throw new Exception( 'Pluginul Cărți digitale nu este activ.' );
@@ -97,28 +97,14 @@ foreach ( $p45_demo_carti as $p45_i => $c ) {
 	}
 }
 
-// Bannerul cu datele de intrare.
-wp_mkdir_p( WP_CONTENT_DIR . '/mu-plugins' );
-copy( $p45_demo_aici . '/p45-demo.php', WP_CONTENT_DIR . '/mu-plugins/p45-demo.php' );
-
 // Conținutul demo nu mai e nevoie să stea în memorie.
-function p45_demo_sterge( $cale ) {
-	if ( ! is_dir( $cale ) ) {
-		return;
-	}
-	$it = new RecursiveIteratorIterator(
-		new RecursiveDirectoryIterator( $cale, FilesystemIterator::SKIP_DOTS ),
-		RecursiveIteratorIterator::CHILD_FIRST
-	);
-	foreach ( $it as $f ) {
-		$f->isDir() ? @rmdir( $f->getPathname() ) : @unlink( $f->getPathname() );
-	}
-	@rmdir( $cale );
+$p45_demo_it = new RecursiveIteratorIterator(
+	new RecursiveDirectoryIterator( $p45_demo_sursa, FilesystemIterator::SKIP_DOTS ),
+	RecursiveIteratorIterator::CHILD_FIRST
+);
+foreach ( $p45_demo_it as $f ) {
+	$f->isDir() ? @rmdir( $f->getPathname() ) : @unlink( $f->getPathname() );
 }
-p45_demo_sterge( $p45_demo_sursa );
-if ( false !== strpos( $p45_demo_aici, '/wp-content/plugins/' ) ) {
-	p45_demo_sterge( dirname( $p45_demo_aici ) . '/docs' );
-	p45_demo_sterge( $p45_demo_aici );
-}
+@rmdir( $p45_demo_sursa );
 
 flush_rewrite_rules();

@@ -3,7 +3,8 @@
 # (Module → Adaugă nou → Încarcă modul). Pune în arhivă doar fișierele pluginului:
 # fără README, capturi de ecran sau scripturi.
 #
-# Folosire:  bash scripts/construieste-zip.sh
+# Folosire:  bash scripts/construieste-zip.sh          arhiva în dist/
+#            bash scripts/construieste-zip.sh --demo   și o copie în demo/, pentru demo-ul online
 set -euo pipefail
 
 NUME="p45-carti-digitale"
@@ -44,3 +45,8 @@ PY
 fi
 
 echo "Gata: dist/$NUME.zip (versiunea $VERSIUNE, $(du -h "$ARHIVA" | cut -f1))"
+
+if [ "${1:-}" = "--demo" ]; then
+	cp "$ARHIVA" "$RADACINA/demo/$NUME.zip"
+	echo "Copiată și în demo/$NUME.zip"
+fi

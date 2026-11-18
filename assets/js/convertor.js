@@ -501,6 +501,7 @@ function details() {
     autor: $('p45-autor').value.trim(),
     isbn: $('p45-isbn').value.trim(),
     an: $('p45-an').value.trim(),
+    cod: $('p45-cod') ? $('p45-cod').value.trim() : '',
     clase: checkedValues('p45-clase'),
     discipline: checkedValues('p45-discipline'),
     toc: tocRows.filter((r) => String(r.t).trim()).map((r) => ({ t: String(r.t).trim(), s: String(r.s || '').trim(), p: parseInt(r.p, 10) || 1 })),

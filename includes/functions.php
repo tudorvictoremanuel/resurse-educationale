@@ -17,6 +17,7 @@ function p45cd_setari_implicite() {
 		'zile_link'    => 7,
 		'latime'       => 1400,
 		'calitate'     => 80,
+		'cheie_api'    => '',
 	);
 }
 
@@ -283,6 +284,7 @@ function p45cd_carte( $post ) {
 		'autor'      => (string) get_post_meta( $id, '_p45_autor', true ),
 		'isbn'       => (string) get_post_meta( $id, '_p45_isbn', true ),
 		'an'         => (string) get_post_meta( $id, '_p45_an', true ),
+		'cod'        => (int) get_post_meta( $id, '_p45_cod', true ),
 		'pagini'     => $pagini,
 		'w'          => (int) get_post_meta( $id, '_p45_w', true ),
 		'h'          => (int) get_post_meta( $id, '_p45_h', true ),
@@ -342,3 +344,44 @@ function p45cd_initiale( $nume ) {
 	}
 	return $i ? $i : '?';
 }
+
+/* ------------------------------------------------------------------ */
+/* Codul cărții în CRM (numărul manualului din platforma veche)        */
+/* ------------------------------------------------------------------ */
+
+/** Cartea care are codul dat sau 0. */
+function p45cd_carte_dupa_cod( $cod ) {
+	$cod = (int) $cod;
+	if ( $cod < 1 ) {
+		return 0;
+	}
+	$ids = get_posts(
+		array(
+			'post_type'      => 'p45_carte',
+			'post_status'    => 'any',
+			'fields'         => 'ids',
+			'posts_per_page' => 1,
+			'meta_key'       => '_p45_cod',
+			'meta_value'     => (string) $cod,
+		)
+	);
+	return $ids ? (int) $ids[0] : 0;
+}
+
+/** Toate perechile cod => id carte. */
+function p45cd_harta_coduri() {
+	global $wpdb;
+	$rez = array();
+	$rows = $wpdb->get_results(
+		"SELECT pm.post_id, pm.meta_value FROM {$wpdb->postmeta} pm
+		 INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id AND p.post_type = 'p45_carte' AND p.post_status <> 'trash'
+		 WHERE pm.meta_key = '_p45_cod'"
+	);
+	foreach ( $rows as $r ) {
+		if ( (int) $r->meta_value > 0 ) {
+			$rez[ (int) $r->meta_value ] = (int) $r->post_id;
+		}
+	}
+	return $rez;
+}
+

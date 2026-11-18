@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once P45CD_DIR . 'admin/carti.php';
 require_once P45CD_DIR . 'admin/profesori.php';
 require_once P45CD_DIR . 'admin/setari.php';
+require_once P45CD_DIR . 'admin/import.php';
 
 add_action( 'admin_menu', 'p45cd_meniu_admin' );
 
@@ -20,6 +21,7 @@ function p45cd_meniu_admin() {
 	add_submenu_page( 'p45-carti', 'Profesori și acces', 'Profesori și acces', 'p45_gestionare', 'p45-profesori', 'p45cd_pagina_profesori' );
 	add_submenu_page( 'p45-carti', 'Clase', 'Clase', 'p45_gestionare', 'edit-tags.php?taxonomy=p45_clasa&post_type=p45_carte' );
 	add_submenu_page( 'p45-carti', 'Discipline', 'Discipline', 'p45_gestionare', 'edit-tags.php?taxonomy=p45_disciplina&post_type=p45_carte' );
+	add_submenu_page( 'p45-carti', 'Import din platforma veche', 'Import din platforma veche', 'p45_gestionare', 'p45-import', 'p45cd_pagina_import' );
 	add_submenu_page( 'p45-carti', 'Setări', 'Setări', 'p45_gestionare', 'p45-setari', 'p45cd_pagina_setari' );
 }
 

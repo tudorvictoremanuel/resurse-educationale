@@ -89,7 +89,7 @@ function p45cd_pagina_carti() {
 							</td>
 							<td>
 								<a class="p45-titlu-link" href="<?php echo esc_url( $edit ); ?>"><?php echo esc_html( $c['titlu'] ); ?></a>
-								<div class="p45-gri"><?php echo esc_html( implode( ' · ', array_filter( array( $c['autor'], $c['isbn'] ? 'ISBN ' . $c['isbn'] : '' ) ) ) ); ?></div>
+								<div class="p45-gri"><?php echo esc_html( implode( ' · ', array_filter( array( $c['autor'], $c['isbn'] ? 'ISBN ' . $c['isbn'] : '', $c['cod'] ? 'Cod CRM ' . $c['cod'] : '' ) ) ) ); ?></div>
 							</td>
 							<td><?php echo esc_html( p45cd_nume_termeni( $c['clase'] ) ); ?></td>
 							<td><?php echo esc_html( p45cd_nume_termeni( $c['discipline'] ) ); ?></td>
@@ -242,6 +242,10 @@ function p45cd_pagina_carte() {
 						</label>
 						<label class="p45-camp">An apariție
 							<input type="text" id="p45-an" inputmode="numeric" value="<?php echo esc_attr( $carte ? $carte['an'] : '' ); ?>">
+						</label>
+						<label class="p45-camp">Cod CRM
+							<input type="number" id="p45-cod" min="1" step="1" value="<?php echo esc_attr( $carte && $carte['cod'] ? $carte['cod'] : '' ); ?>">
+							<span class="p45-gri p45-mic">Numărul cu care CRM-ul dă acces la carte. Opțional.</span>
 						</label>
 					</div>
 					<div class="p45-grila-campuri">

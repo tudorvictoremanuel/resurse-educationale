@@ -17,6 +17,7 @@ add_action(
 		$lat               = isset( $_POST['latime'] ) ? (int) $_POST['latime'] : 1400;
 		$s['latime']       = in_array( $lat, array( 1000, 1200, 1400, 1600, 1800 ), true ) ? $lat : 1400;
 		$s['calitate']     = max( 50, min( 95, isset( $_POST['calitate'] ) ? (int) $_POST['calitate'] : 80 ) );
+		$s['cheie_api']    = isset( $_POST['cheie_api'] ) ? mb_substr( trim( sanitize_text_field( wp_unslash( $_POST['cheie_api'] ) ) ), 0, 200 ) : '';
 		update_option( 'p45cd_setari', $s );
 		p45cd_mesaj_admin( 'ok', 'Setările au fost salvate.' );
 		wp_safe_redirect( admin_url( 'admin.php?page=p45-setari' ) );
@@ -78,6 +79,13 @@ function p45cd_pagina_setari() {
 					<label class="p45-camp p45-camp-scurt">Calitatea imaginilor (50–95)
 						<input type="number" name="calitate" min="50" max="95" value="<?php echo (int) $s['calitate']; ?>">
 						<span class="p45-gri">80 e un echilibru bun între claritate și mărime.</span>
+					</label>
+
+					<h2 class="p45-h2" id="crm">Legătura cu CRM-ul</h2>
+					<p class="p45-gri">CRM-ul dă acces profesorilor prin <code><?php echo esc_html( rest_url( 'ep45/v1/utilizatori/' ) ); ?></code>, ca pe platforma veche. Manualele se recunosc după câmpul „Cod CRM” al fiecărei cărți.</p>
+					<label class="p45-camp">Cheia CRM-ului (AUTH_KEY)
+						<input type="text" name="cheie_api" value="<?php echo esc_attr( $s['cheie_api'] ); ?>" autocomplete="off" spellcheck="false">
+						<span class="p45-gri">Aceeași cheie pe care o trimite CRM-ul acum. Lasă gol ca să oprești legătura.</span>
 					</label>
 					<div><button type="submit" class="p45-btn p45-btn-rosu">Salvează setările</button></div>
 				</form>

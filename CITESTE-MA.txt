@@ -45,6 +45,26 @@ Cărți digitale → Profesori și acces:
 - pentru multe comenzi odată: „Importă mai multe comenzi (CSV)” (model inclus).
 
 
+MUTAREA DE PE PLATFORMA VECHE (resurse.edituraparalela45.ro)
+Cărți digitale → Import din platforma veche. Ai nevoie de WordPress 6.8 sau mai nou.
+1. Manualele: urcă arhivele p45-migrare-1.zip, -2.zip, -3.zip din managerul de
+   fișiere al hostingului în wp-content/uploads/p45-carti/ (nu le dezarhiva),
+   reîncarcă pagina și apasă „Importă … manuale”. La final, „Șterge arhivele”.
+2. Profesorii: exportă baza veche din phpMyAdmin (Exportă → Rapid → SQL) și încarc-o
+   în pagină. Dacă fișierul e prea mare pentru încărcare, urcă-l în același dosar
+   wp-content/uploads/p45-carti/ și apasă „Citește acest fișier”.
+   Verifică tabelul cu manualele, apoi apasă „Importă … profesori”.
+   Profesorii intră cu același email și aceeași parolă și au aceleași manuale.
+   Nu se trimite niciun email. Fișierul .sql se șterge de pe server după import.
+3. În ziua mutării: exportă din nou baza veche și rulează încă o dată importul
+   profesorilor. Adaugă doar ce lipsește (conturi și accese noi).
+4. CRM-ul: instalează modulul „Simple JWT Login” (setările lui se copiază la import),
+   apoi la Setări → Legătura cu CRM-ul pune aceeași cheie (AUTH_KEY) pe care o
+   folosește CRM-ul acum. CRM-ul dă acces prin aceeași adresă:
+   /wp-json/ep45/v1/utilizatori, cu numerele vechi ale manualelor („Cod CRM”).
+   La o carte nouă, completează „Cod CRM” cu numărul pe care îl va folosi CRM-ul.
+
+
 PENTRU FIRMA DE HOSTING (TEHNIC)
 - Paginile cărților stau în wp-content/uploads/p45-carti/ și se servesc doar prin
   platformă, profesorilor cu acces. Pe Apache dosarul e protejat automat (.htaccess).

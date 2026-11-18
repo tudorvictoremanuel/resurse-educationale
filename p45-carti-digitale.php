@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Paralela 45 – Cărți digitale
  * Description:       Platformă de cărți digitale pentru profesori: încarci PDF-ul, platforma îl transformă într-o carte care se răsfoiește, cu Mod Tablă, desen, semne de carte și note. Accesul se dă din comandă.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Editura Paralela 45
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'P45CD_VERSION', '1.0.0' );
+define( 'P45CD_VERSION', '1.1.0' );
 define( 'P45CD_FILE', __FILE__ );
 define( 'P45CD_DIR', plugin_dir_path( __FILE__ ) );
 define( 'P45CD_URL', plugin_dir_url( __FILE__ ) );
@@ -27,6 +27,8 @@ require_once P45CD_DIR . 'includes/access.php';
 require_once P45CD_DIR . 'includes/mail.php';
 require_once P45CD_DIR . 'includes/routes.php';
 require_once P45CD_DIR . 'includes/rest.php';
+require_once P45CD_DIR . 'includes/migrare.php';
+require_once P45CD_DIR . 'includes/api-crm.php';
 
 if ( is_admin() ) {
 	require_once P45CD_DIR . 'admin/admin.php';

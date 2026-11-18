@@ -328,6 +328,9 @@ function p45cd_stare_profesor( $user ) {
 	if ( get_user_meta( $user->ID, 'p45_ultima_intrare', true ) ) {
 		return array( 'Activ', 'p45-chip-verde', false );
 	}
+	if ( get_user_meta( $user->ID, 'p45_import', true ) ) {
+		return array( 'Din platforma veche', 'p45-chip-gri', false );
+	}
 	$inv = (int) get_user_meta( $user->ID, 'p45_invitat', true );
 	if ( ! $inv ) {
 		return array( 'Fără email trimis', 'p45-chip-gri', true );

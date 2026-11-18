@@ -90,6 +90,14 @@ function p45cd_salveaza_detalii( $id, $req ) {
 		}
 		update_post_meta( $id, '_p45_toc', wp_slash( wp_json_encode( p45cd_curata_cuprins( (array) $p['toc'], $max ) ) ) );
 	}
+	if ( isset( $p['cod'] ) ) {
+		$cod = (int) $p['cod'];
+		if ( $cod > 0 ) {
+			update_post_meta( $id, '_p45_cod', $cod );
+		} else {
+			delete_post_meta( $id, '_p45_cod' );
+		}
+	}
 	if ( isset( $p['sursa'] ) ) {
 		update_post_meta( $id, '_p45_sursa', mb_substr( sanitize_file_name( $p['sursa'] ), 0, 200 ) );
 	}
@@ -130,7 +138,24 @@ function p45cd_porneste_conversie( $id ) {
 	return $token;
 }
 
+/** Codul CRM trebuie să fie unic: altfel CRM-ul ar da acces la altă carte. */
+function p45cd_rest_cod_ocupat( $req, $id = 0 ) {
+	$p = $req->get_json_params();
+	if ( ! is_array( $p ) || ! isset( $p['cod'] ) || (int) $p['cod'] < 1 ) {
+		return null;
+	}
+	$alt = p45cd_carte_dupa_cod( (int) $p['cod'] );
+	if ( $alt && $alt !== (int) $id ) {
+		return new WP_Error( 'p45_cod', 'Codul CRM ' . (int) $p['cod'] . ' e folosit deja la „' . get_the_title( $alt ) . '”. Alege alt cod.', array( 'status' => 400 ) );
+	}
+	return null;
+}
+
 function p45cd_rest_creeaza( $req ) {
+	$ocupat = p45cd_rest_cod_ocupat( $req );
+	if ( $ocupat ) {
+		return $ocupat;
+	}
 	$id = wp_insert_post(
 		array(
 			'post_type'   => 'p45_carte',
@@ -154,6 +179,10 @@ function p45cd_rest_actualizeaza( $req ) {
 	$post = p45cd_rest_carte_sau_eroare( $req['id'] );
 	if ( is_wp_error( $post ) ) {
 		return $post;
+	}
+	$ocupat = p45cd_rest_cod_ocupat( $req, $post->ID );
+	if ( $ocupat ) {
+		return $ocupat;
 	}
 	p45cd_salveaza_detalii( $post->ID, $req );
 	return p45cd_rest_raspuns_carte( $post->ID );

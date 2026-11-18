@@ -33,6 +33,7 @@ Editura încarcă PDF-ul de tipar din panoul WordPress. Platforma îl transform�
 - [Ce poate face](#ce-poate-face)
 - [Cum funcționează](#cum-funcționează)
 - [Instalare](#instalare)
+- [Mutarea de pe platforma veche](#mutarea-de-pe-platforma-veche)
 - [Structura codului](#structura-codului)
 - [Detalii tehnice](#detalii-tehnice)
 - [Dezvoltare](#dezvoltare)
@@ -100,6 +101,8 @@ Editura încarcă PDF-ul de tipar din panoul WordPress. Platforma îl transform�
 - **Emailuri automate.** Un cont nou primește un link pentru parolă. Un cont existent primește lista cărților adăugate.
 - **Import CSV** pentru multe comenzi odată (modelul e inclus).
 - **Lista profesorilor** arată școala, comenzile, ultima intrare și starea (invitație trimisă sau activ). Emailul se poate retrimite.
+- **Import din platforma veche:** manualele (gata convertite) și toți profesorii, cu aceeași parolă și aceleași manuale. Detalii mai jos, la [Mutarea de pe platforma veche](#mutarea-de-pe-platforma-veche).
+- **Legătura cu CRM-ul:** CRM-ul editurii dă acces la manuale prin aceeași adresă ca pe platforma veche, fără modificări.
 
 ### Protecția conținutului
 
@@ -165,6 +168,37 @@ Ghidul pas cu pas, în limbaj simplu, este în [`CITESTE-MA.txt`](CITESTE-MA.txt
 
 ---
 
+## Mutarea de pe platforma veche
+
+Pagina **Cărți digitale → Import din platforma veche** aduce totul de pe resurse.edituraparalela45.ro. Testul complet, pe o copie cu baza reală, a arătat:
+
+- toate cele 39 de manuale au intrat, cu titlul, clasa, disciplina și cuprinsul lor;
+- au fost importați 2.031 de profesori, cu aceleași manuale ca înainte (3.906 accese, verificate cont cu cont);
+- parola fiecărui cont a rămas aceeași. Am verificat intrarea atât cu parolele în formatul nou al WordPress (`$wp$…`), cât și cu cele vechi (`$P$…`).
+
+1. **Manualele** vin în arhive `p45-migrare-*.zip`, cu paginile gata convertite (WebP la 1400 px, miniaturi, copertă) și un `manifest.json`. Arhivele se urcă în `wp-content/uploads/p45-carti/` și se importă cu un clic. Fiecare manual își păstrează numărul din platforma veche, ca **Cod CRM**.
+2. **Profesorii** se citesc din exportul `.sql` al bazei vechi (phpMyAdmin → Exportă → SQL). Pluginul păstrează doar emailul, numele, parola criptată și lista de manuale (câmpul ACF `acces_manuale`). Fișierul se șterge de pe server după import.
+3. **Importul se poate repeta** cu un export mai nou, de exemplu în ziua mutării. Adaugă doar conturile și accesele noi și nu atinge parolele profesorilor care au intrat deja pe platforma nouă.
+4. **Nu se trimite niciun email.** Conturile de administrare din baza veche nu se importă.
+
+**Cerință:** WordPress 6.8 sau mai nou, ca parolele din platforma veche să fie recunoscute.
+
+### Legătura cu CRM-ul
+
+CRM-ul editurii creează conturi prin modulul [Simple JWT Login](https://wordpress.org/plugins/simple-jwt-login/), ale cărui setări le copiază importul. Accesul la manuale îl dă prin aceeași adresă ca pe platforma veche:
+
+| Cerere | Parametri | Răspuns |
+|---|---|---|
+| `GET /wp-json/ep45/v1/utilizatori/` | `AUTH_KEY`, `email` | `{"status":200,"data":{"ID":…,"email":…,"manuale_acces":[280,302]}}` |
+| `POST /wp-json/ep45/v1/utilizatori/` | `AUTH_KEY`, `email`, `manuale_acces=280,302,…` | la fel, cu lista nouă |
+
+- Numerele din `manuale_acces` sunt codurile CRM ale cărților.
+- La `POST`, lista trimisă înlocuiește lista de manuale a profesorului, ca pe platforma veche. Cărțile fără cod CRM, cu acces dat din platformă, nu sunt atinse.
+- Erorile au aceleași mesaje ca înainte: `Invalid Auth Code`, `No email provided.`, `No user found.`, `Invalid manuale_acces provided.`.
+- Cheia (`AUTH_KEY`) se setează la **Setări → Legătura cu CRM-ul**. Fără cheie, legătura e oprită.
+
+---
+
 ## Structura codului
 
 ```
@@ -176,12 +210,15 @@ p45-carti-digitale/
 │   ├── access.php           cine ce poate citi; salvarea stării cititorului
 │   ├── routes.php           adresele publice, intrarea, parola, servirea imaginilor
 │   ├── rest.php             REST API: cărți, conversie, pagini, stare
+│   ├── migrare.php          importul din platforma veche: pachete cu manuale, export .sql
+│   ├── api-crm.php          legătura cu CRM-ul (/wp-json/ep45/v1/utilizatori)
 │   ├── mail.php             emailurile HTML (invitație, cărți noi, parolă)
 │   └── functions.php        setări, adrese, cuprins, utilitare
 ├── admin/                   paginile din panoul WordPress
 │   ├── carti.php            lista și editorul de carte (conversia din PDF)
 │   ├── profesori.php        acces din comandă, import CSV, lista profesorilor
-│   ├── setari.php           email de suport, valabilitatea linkului, calitatea imaginilor
+│   ├── import.php           pagina „Import din platforma veche”
+│   ├── setari.php           email de suport, valabilitatea linkului, calitatea imaginilor, cheia CRM
 │   └── admin.php            meniul și mesajele
 ├── templates/               paginile pentru profesori
 │   ├── intra.php · parola.php · biblioteca.php · cititor.php · mesaj.php · parts.php
@@ -198,7 +235,7 @@ p45-carti-digitale/
 └── scripts/                 construirea arhivei pentru WordPress (nu intră în arhivă)
 ```
 
-Codul propriu are aproximativ 5.400 de linii (PHP, JavaScript și CSS), fără biblioteci externe și fără pas de compilare.
+Codul propriu are aproximativ 6.700 de linii (PHP, JavaScript și CSS), fără biblioteci externe și fără pas de compilare.
 
 ---
 
@@ -209,7 +246,7 @@ Codul propriu are aproximativ 5.400 de linii (PHP, JavaScript și CSS), fără b
 
 | Ce | Unde |
 |---|---|
-| Cărțile | tipul de conținut `p45_carte`, cu taxonomiile `p45_clasa` și `p45_disciplina` |
+| Cărțile | tipul de conținut `p45_carte`, cu taxonomiile `p45_clasa` și `p45_disciplina`; codul CRM în `_p45_cod` |
 | Accesul | tabelul `wp_p45_acces` (profesor, carte, comandă, expirare), cu cheie unică pe profesor și carte |
 | Starea cititorului | tabelul `wp_p45_date` (JSON per profesor și carte: ultima pagină, desene, note, semne) |
 | Paginile | `wp-content/uploads/p45-carti/<id>-<token>/` (`p` pagini, `m` miniaturi, `c` copertă) |
@@ -232,8 +269,10 @@ Adresele publice sunt `/intra/`, `/parola/`, `/biblioteca/`, `/carte/<id>-<titlu
 | `POST` | `/carti/{id}/coperta` | primește coperta |
 | `POST` | `/carti/{id}/finalizare` | activează paginile noi și le șterge pe cele vechi |
 | `GET` / `POST` | `/stare/{id}` | starea cititorului pentru profesorul conectat |
+| `POST` | `/import/carte` | importă un manual dintr-un pachet de migrare |
+| `POST` | `/import/profesori` | importă un lot de profesori din exportul vechi |
 
-Toate rutele cer nonce-ul `wp_rest`. Rutele pentru cărți cer `p45_gestionare`, iar `/stare` cere acces la carte.
+Toate rutele cer nonce-ul `wp_rest`. Rutele pentru cărți și import cer `p45_gestionare`, iar `/stare` cere acces la carte. Ruta CRM-ului (`ep45/v1`) e descrisă mai sus și se autentifică prin `AUTH_KEY`.
 
 </details>
 
@@ -251,7 +290,7 @@ Toate rutele cer nonce-ul `wp_rest`. Rutele pentru cărți cer `p45_gestionare`,
 <details>
 <summary><b>Setări</b></summary>
 
-Din **Cărți digitale → Setări** se pot schimba emailul de suport (apare la profesori și în emailuri), valabilitatea linkului de parolă (implicit 7 zile), lățimea paginilor (implicit 1400 px) și calitatea imaginilor (implicit 80).
+Din **Cărți digitale → Setări** se pot schimba emailul de suport (apare la profesori și în emailuri), valabilitatea linkului de parolă (implicit 7 zile), lățimea paginilor (implicit 1400 px), calitatea imaginilor (implicit 80) și cheia CRM-ului.
 
 </details>
 

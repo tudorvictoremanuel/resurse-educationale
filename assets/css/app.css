@@ -1,0 +1,155 @@
+/* Paralela 45 – Cărți digitale: intrare, bibliotecă, pagini simple */
+:root{
+  --fundal:#F6F5F2; --alb:#FFFFFF; --ink:#1A1D24; --text2:#3D434F; --muted:#5B6270;
+  --linie:#E7E4DE; --linie2:#DCD8D0; --rosu:#CF2C14; --rosu-h:#B5260F; --rosu-text:#C42A12; --rosu-fond:#FFF1EE;
+  --marca:#E5341A; --bleumarin:#1F2A44; --verde:#0F766E;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--fundal);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+a{color:var(--rosu-text)}a:hover{color:#9E200C}
+h1,h2,h3{font-family:'Plus Jakarta Sans',Inter,sans-serif;letter-spacing:-.01em;line-height:1.2}
+button,input,select,textarea{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--muted)} .mic{font-size:13px} .mare{font-size:16px}
+:focus-visible{outline:3px solid #F28C78;outline-offset:2px}
+
+/* butoane */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 22px;border-radius:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.btn-rosu{background:var(--rosu);color:#fff}.btn-rosu:hover{background:var(--rosu-h);color:#fff}
+.btn-alb{background:var(--alb);color:var(--ink);border:1px solid var(--linie2)}.btn-alb:hover{background:#FAFAF8;color:var(--ink)}
+.btn-mare{height:52px;font-size:16px;font-weight:700}
+.btn-mic{height:40px;padding:0 14px;border-radius:12px;font-size:14px}
+
+/* mesaje */
+.eroare,.info{margin:0;padding:12px 16px;border-radius:12px;font-size:14px}
+.eroare{background:var(--rosu-fond);color:#9E200C}
+.info{background:#E6F4F1;color:#0B5D56}
+
+/* marca */
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.marca img{width:36px;height:32px;object-fit:contain}
+.marca-txt{display:flex;flex-direction:column;line-height:1.15}
+.marca-txt b{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:17px}
+.marca-txt span{font-size:12px;color:var(--muted)}
+
+/* formulare */
+.form{display:flex;flex-direction:column;gap:16px}
+.form label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:14px}
+.form input[type=email],.form input[type=password],.form input[type=text]{height:48px;padding:0 14px;border:1px solid var(--linie2);border-radius:12px;background:var(--alb);font-weight:400}
+.parola-camp{position:relative;display:flex}
+.parola-camp input{flex:1;padding-right:96px !important}
+.arata{position:absolute;right:6px;top:6px;height:36px;padding:0 12px;border:0;border-radius:8px;background:#F3F1EC;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer}
+.rand-mic{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;font-size:14px}
+.form .bifa{flex-direction:row;align-items:center;gap:8px;font-weight:400;color:var(--text2)}
+.bifa input{width:18px;height:18px;accent-color:var(--rosu)}
+.nota-gri{margin:0;padding:14px 16px;border-radius:12px;background:#EFECE6;font-size:14px;color:var(--text2)}
+
+/* pagina de intrare */
+.intrare{min-height:100vh;display:flex;flex-wrap:wrap}
+.intrare-stanga{flex:1 1 520px;min-width:0;background:var(--bleumarin);color:#fff;padding:56px;display:flex;flex-direction:column;gap:40px;overflow:hidden}
+.intrare-stanga .marca-txt span{color:#C9D1E0}
+.intrare-stanga .marca img{background:#fff;border-radius:12px;padding:6px;width:48px;height:44px}
+.intrare-titlu{max-width:560px}
+.intrare-titlu h2{margin:0 0 16px;font-size:44px;font-weight:800;line-height:1.1}
+.intrare-titlu p{margin:0;font-size:18px;color:#D9DEE8}
+.colaj{position:relative;height:380px;margin-top:auto;max-width:600px}
+.colaj img{position:absolute;object-fit:cover;border-radius:12px;background:#fff}
+.colaj .c1{left:0;top:50px;width:210px;height:285px;transform:rotate(-7deg);box-shadow:0 24px 48px rgba(0,0,0,.35)}
+.colaj .c2{left:170px;top:0;width:240px;height:326px;z-index:2;box-shadow:0 28px 56px rgba(0,0,0,.4)}
+.colaj .c3{left:370px;top:60px;width:210px;height:285px;transform:rotate(6deg);box-shadow:0 24px 48px rgba(0,0,0,.35)}
+.intrare-dreapta{flex:1 1 440px;min-width:0;display:flex;align-items:center;justify-content:center;padding:56px 32px}
+.intrare-form{width:100%;max-width:420px;display:flex;flex-direction:column;gap:22px}
+.intrare-form h1{margin:0;font-size:32px;font-weight:800}
+.intrare-form p{margin:6px 0 0}
+@media (max-width:720px){
+  .intrare-stanga{padding:28px 24px;gap:20px}
+  .intrare-titlu h2{font-size:30px}
+  .intrare-titlu p{font-size:16px}
+  .colaj{display:none}
+  .intrare-dreapta{padding:32px 20px}
+}
+
+/* pagini simple (parolă, mesaje) */
+.simplu{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+.card-simplu{width:100%;max-width:460px;background:var(--alb);border:1px solid var(--linie);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px}
+.card-simplu h1{margin:8px 0 0;font-size:28px;font-weight:800}
+.card-simplu p{margin:0}
+.card-simplu .btn{align-self:flex-start}
+
+/* antet bibliotecă */
+.antet{background:var(--alb);border-bottom:1px solid var(--linie)}
+.antet-in{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
+.antet-nav{display:flex;gap:4px}
+.antet-nav a{padding:10px 14px;border-radius:10px;color:var(--text2);font-weight:500;text-decoration:none}
+.antet-nav a[aria-current=page]{background:var(--rosu-fond);color:var(--rosu-h);font-weight:600}
+.spatiu{flex:1 1 20px}
+.cauta{position:relative;display:flex;align-items:center;flex:0 1 300px;min-width:180px}
+.cauta svg{position:absolute;left:14px;color:var(--muted)}
+.cauta input{width:100%;height:44px;padding:0 14px 0 42px;border:1px solid var(--linie2);border-radius:12px;background:#FAFAF8}
+.cont{display:flex;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--bleumarin);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:0 0 auto}
+.cont-nume{font-weight:600;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* conținut bibliotecă */
+.continut{max-width:1280px;margin:0 auto;padding:36px 32px 64px;display:flex;flex-direction:column;gap:36px}
+.salut h1{margin:0;font-size:34px;font-weight:800}
+.salut p{margin:6px 0 0}
+.rand-sus{display:flex;flex-wrap:wrap;gap:24px}
+.continua{flex:2 1 560px;min-width:0;background:var(--alb);border:1px solid var(--linie);border-radius:22px;padding:24px;display:flex;flex-wrap:wrap;gap:28px}
+.continua-coperta{width:150px;height:200px;object-fit:cover;border-radius:10px;box-shadow:0 10px 24px rgba(26,29,36,.14);border:1px solid #ECEAE5;flex:0 0 auto}
+.continua-info{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.continua-info h2{margin:0;font-size:28px;font-weight:800}
+.continua-info p{margin:0}
+.eticheta{font-size:13px;font-weight:600;color:var(--rosu-text)}
+.progres{display:flex;align-items:center;gap:12px}
+.bara{flex:1;height:8px;border-radius:99px;background:#EFECE6;overflow:hidden;display:block}
+.bara span{display:block;height:100%;background:var(--marca);border-radius:99px}
+.progres .muted{white-space:nowrap}
+.cipuri{display:flex;flex-wrap:wrap;gap:8px}
+.cip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;background:#F3F1EC;font-size:13px;color:var(--text2)}
+.butoane{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.sfat{flex:1 1 300px;min-width:0;background:var(--bleumarin);color:#fff;border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.sfat-icon{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+.sfat h2{margin:0;font-size:21px;font-weight:700}
+.sfat ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;color:#D9DEE8}
+.sfat li{display:flex;gap:12px}
+.sfat li span{flex:0 0 26px;height:26px;border-radius:50%;background:#fff;color:var(--bleumarin);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+
+.sectiune{display:flex;flex-direction:column;gap:20px}
+.sectiune-cap h2{margin:0;font-size:24px;font-weight:800}
+.filtre{display:flex;flex-wrap:wrap;gap:10px}
+.filtru{height:40px;padding:0 16px;border-radius:99px;font-size:14px;font-weight:600;cursor:pointer;background:var(--alb);color:var(--ink);border:1px solid var(--linie2)}
+.filtru span{opacity:.75;font-weight:500}
+.filtru[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.card-carte{background:var(--alb);border:1px solid var(--linie);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card-carte[hidden]{display:none}
+.card-coperta{display:block}
+.coperta{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;background:#EFECE6;border:1px solid #ECEAE5}
+.coperta-goala,.continua-coperta.coperta-goala{display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;background:linear-gradient(160deg,#1F2A44,#33456E);color:#fff;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:700;font-size:16px;line-height:1.25}
+.card-text{display:flex;flex-direction:column;gap:2px;flex:1}
+.card-text h3{margin:0;font-size:16px;font-weight:700;line-height:1.3}
+.card-text h3 a{color:var(--ink);text-decoration:none}
+.card-text h3 a:hover{text-decoration:underline}
+.card-text p{margin:0}
+.autor{font-size:14px;color:var(--text2)}
+.card-butoane{display:flex;gap:8px}
+.card-butoane .btn{flex:1;height:44px;padding:0 12px;border-radius:12px}
+.btn-tabla{width:44px;height:44px;border-radius:12px;background:var(--rosu-fond);color:var(--rosu-h);display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.btn-tabla:hover{background:#FFE2DB;color:var(--rosu-h)}
+.gol{background:var(--alb);border:1px dashed var(--linie2);border-radius:22px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;color:var(--muted)}
+.gol h2{margin:4px 0 0;color:var(--ink);font-size:22px}
+.gol p{margin:0;max-width:520px}
+.gol .btn{margin-top:8px}
+.gol-filtru{margin:0}
+.subsol{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;border-top:1px solid var(--linie);color:var(--muted);font-size:14px}
+@media (max-width:720px){
+  .antet-in,.continut{padding-left:16px;padding-right:16px}
+  .cont-nume{display:none}
+  .salut h1{font-size:28px}
+  .continua{padding:18px;gap:18px}
+  .continua-coperta{width:110px;height:146px}
+  .continua-info h2{font-size:22px}
+  .grila{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+}

@@ -1,0 +1,24 @@
+# Sfârșit de linie unitar (LF), indiferent de sistemul de operare
+* text=auto eol=lf
+
+# Fișiere binare: git nu le modifică
+*.webp   binary
+*.png    binary
+*.jpg    binary
+*.woff2  binary
+*.ttf    binary
+*.pfb    binary
+*.icc    binary
+*.wasm   binary
+*.zip    binary
+
+# Bibliotecile externe minificate nu apar în statistica de limbaje
+assets/vendor/** linguist-vendored
+
+# Nu intră în arhivele „Source code” de pe GitHub (acolo e doar pluginul)
+/.github          export-ignore
+/docs             export-ignore
+/scripts          export-ignore
+/.gitattributes   export-ignore
+/.gitignore       export-ignore
+/README.md        export-ignore

@@ -1,0 +1,57 @@
+PARALELA 45 – CĂRȚI DIGITALE
+Plugin WordPress, versiunea 1.0.0
+
+Platformă pentru profesori: editura încarcă PDF-ul cărții, platforma îl transformă
+într-o carte digitală care se răsfoiește (cu cuprins, semne de carte, note, desen
+peste pagini și Mod Tablă pentru tabla interactivă). Accesul se dă din comandă.
+
+
+CE ÎȚI TREBUIE
+- Un WordPress nou (6.2 sau mai nou), cu PHP 7.4 sau mai nou.
+- Pentru conversie: un calculator cu Chrome, Edge sau Firefox actualizat.
+
+ATENȚIE: instalează pluginul pe un WordPress separat (de exemplu pe un subdomeniu
+ca carti.edituraparalela45.ro), NU pe site-ul principal al editurii. După activare,
+tot site-ul devine platforma: orice altă pagină duce la intrare sau la bibliotecă.
+
+
+INSTALARE
+1. În WordPress: Module (Plugins) → Adaugă nou → Încarcă modul → alege fișierul
+   p45-carti-digitale.zip → Instalează acum → Activează.
+2. Meniul „Cărți digitale” → Setări:
+   - scrie emailul de suport (apare pentru profesori);
+   - apasă „Trimite-mi un email de test”. Dacă emailul nu ajunge, instalează un
+     modul SMTP (de exemplu „WP Mail SMTP”) și pune datele contului de email.
+3. Gata. Adresa pentru profesori este adresa site-ului (se deschide pagina de intrare).
+
+
+ADAUGI O CARTE
+1. Cărți digitale → Adaugă carte din PDF.
+2. Alegi PDF-ul de tipar (interiorul). PDF-ul NU se urcă pe server: paginile se
+   pregătesc în browser și se urcă doar imaginile lor (o carte de 200 de pagini are
+   cam 30 MB pe server, față de câteva sute de MB cât are PDF-ul).
+3. Platforma completează singură ce găsește: titlul, ISBN-ul, anul și cuprinsul
+   (din capitole sau din pagina „Cuprins”). Verifică-le, alege clasa și disciplina.
+4. Opțional: coperta (JPG, PNG sau WebP). Fără ea se folosește prima pagină.
+5. Apasă „Convertește și salvează” și nu închide pagina până la final
+   (cam un minut la 200 de pagini).
+
+
+DAI ACCES UNUI PROFESOR
+Cărți digitale → Profesori și acces:
+- scrii nr. comenzii, emailul și numele profesorului, bifezi cărțile cumpărate;
+- profesorul primește un email cu link pentru parolă (cont nou) sau un email că i
+  s-au adăugat cărți (cont existent);
+- pentru multe comenzi odată: „Importă mai multe comenzi (CSV)” (model inclus).
+
+
+PENTRU FIRMA DE HOSTING (TEHNIC)
+- Paginile cărților stau în wp-content/uploads/p45-carti/ și se servesc doar prin
+  platformă, profesorilor cu acces. Pe Apache dosarul e protejat automat (.htaccess).
+  Pe nginx adăugați în configurarea site-ului:
+      location ^~ /wp-content/uploads/p45-carti/ { deny all; }
+- Copia de siguranță: baza de date + dosarul wp-content/uploads/p45-carti/.
+- Fiecare pagină se urcă separat (de obicei sub 1 MB), deci limitele obișnuite de
+  upload sunt suficiente.
+
+Biblioteci incluse: PDF.js (Mozilla, licență Apache 2.0) și StPageFlip (licență MIT).

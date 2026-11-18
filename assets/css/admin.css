@@ -1,0 +1,148 @@
+/* Paralela 45 – Cărți digitale: panoul de administrare */
+.p45-admin{--ink:#1A1D24;--text2:#3D434F;--muted:#5B6270;--linie:#E7E4DE;--linie2:#DCD8D0;--rosu:#CF2C14;--rosu-h:#B5260F;--rosu-text:#C42A12;--fond:#F6F5F2;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);font-size:14px;max-width:1240px}
+.p45-admin *{box-sizing:border-box}
+.p45-admin a{color:var(--rosu-text)}
+.p45-admin a:hover{color:#9E200C}
+.p45-cap{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:18px 0 20px}
+.p45-h1{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:28px;font-weight:800;line-height:1.2;margin:0;padding:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.p45-h2{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:17px;font-weight:700;margin:0 0 12px;line-height:1.3}
+.p45-sub{margin:4px 0 0;color:var(--muted);font-size:14px}
+.p45-cale{margin:0 0 2px;font-size:13px;color:var(--muted)}
+.p45-cale a{color:var(--muted)}
+.p45-gri{color:var(--muted)}
+.p45-mic{font-size:13px}
+.p45-oblig{font-weight:500;color:var(--muted);font-size:12px;margin-left:4px}
+.p45-card{background:#fff;border:1px solid var(--linie);border-radius:16px;padding:22px;margin:0 0 20px}
+.p45-fara-padding{padding:0;overflow:hidden}
+.p45-padding{padding:18px 22px}
+.p45-coloane{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.p45-col-mare{flex:2 1 560px;min-width:0}
+.p45-col-mica{flex:1 1 300px;min-width:0}
+.p45-col-mare>.p45-card:last-child,.p45-col-mica>.p45-card:last-child{margin-bottom:20px}
+
+/* butoane */
+.p45-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 18px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid transparent;cursor:pointer;line-height:1.2;white-space:nowrap}
+.p45-btn-rosu{background:var(--rosu);color:#fff !important;border-color:var(--rosu)}
+.p45-btn-rosu:hover{background:var(--rosu-h);border-color:var(--rosu-h)}
+.p45-btn-alb{background:#fff;color:var(--ink) !important;border-color:var(--linie2)}
+.p45-btn-alb:hover{background:#FAFAF8}
+.p45-btn-lat{width:100%;margin-top:6px;min-height:48px;font-size:15px}
+.p45-btn:disabled{opacity:.55;cursor:default}
+.p45-rosu-text{color:var(--rosu-text) !important}
+.p45-link,.p45-link-rosu{background:none;border:0;padding:0;font:inherit;cursor:pointer;text-decoration:underline}
+.p45-link{color:var(--rosu-text)}
+.p45-link-rosu{color:var(--rosu-text)}
+.p45-inline{display:inline}
+.p45-btn-fisier{position:relative;overflow:hidden;width:100%}
+.p45-btn-fisier input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* mesaje */
+.p45-mesaj{background:#E6F4F1;border:1px solid #BFE3DC;color:#0B4F49;border-radius:12px;padding:12px 16px;margin:0 0 18px}
+.p45-mesaj p{margin:.2em 0}
+.p45-mesaj ul{margin:.4em 0 0 1.2em;list-style:disc}
+.p45-mesaj-eroare{background:#FFF1EE;border-color:#F6C9BE;color:#8A1C0A}
+.p45-linkuri a{margin-right:16px;font-weight:600}
+
+/* tabele */
+.p45-tabel-cutie{overflow-x:auto}
+.p45-tabel{width:100%;border-collapse:collapse;min-width:720px}
+.p45-tabel th{background:#F6F5F2;text-align:left;font-weight:600;color:var(--text2);padding:10px 14px;font-size:13px;white-space:nowrap}
+.p45-tabel td{padding:12px 14px;border-top:1px solid #ECEAE5;vertical-align:middle}
+.p45-tabel .num{text-align:right;font-variant-numeric:tabular-nums}
+.p45-tabel tbody tr:hover{background:#FCFBF9}
+.p45-titlu-link{font-weight:600;color:var(--ink) !important;text-decoration:none}
+.p45-titlu-link:hover{text-decoration:underline}
+.p45-actiuni{white-space:nowrap;text-align:right}
+.p45-actiuni a,.p45-actiuni form{margin-left:12px}
+.p45-gol-rand{text-align:center;color:var(--muted);padding:28px !important}
+.p45-mini-coperta{width:40px;height:54px;object-fit:cover;border-radius:4px;border:1px solid var(--linie);display:block;background:#F3F1EC}
+.p45-mini-gol{display:block;width:40px;height:54px;border-radius:4px;background:#EFECE6}
+
+/* cipuri de stare */
+.p45-chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap;font-family:Inter,sans-serif}
+.p45-chip-verde{background:#E6F4F1;color:#0F766E}
+.p45-chip-galben{background:#FEF3C7;color:#92400E}
+.p45-chip-rosu{background:#FFF1EE;color:#B5260F}
+.p45-chip-gri{background:#EFECE6;color:#3D434F}
+
+/* goluri */
+.p45-gol{text-align:center;padding:48px 24px}
+.p45-gol .dashicons{font-size:40px;width:40px;height:40px;color:var(--muted)}
+.p45-gol h2{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:22px;margin:10px 0 6px}
+.p45-gol p{color:var(--muted);max-width:520px;margin:0 auto 18px}
+
+/* formulare */
+.p45-form{display:flex;flex-direction:column;gap:16px}
+.p45-grila-campuri{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:16px}
+.p45-camp{display:flex;flex-direction:column;gap:6px;font-weight:600;margin:0;padding:0;border:0;min-width:0}
+.p45-camp legend{font-weight:600;margin-bottom:8px;padding:0}
+.p45-camp-lat{grid-column:1/-1}
+.p45-camp-scurt{max-width:420px}
+.p45-camp input[type=text],.p45-camp input[type=email],.p45-camp input[type=number],.p45-camp input[type=search],.p45-camp select,.p45-cauta-form input[type=search],.p45-cauta-carti input,.p45-toc input{height:42px;padding:0 12px;border:1px solid var(--linie2);border-radius:10px;font:inherit;font-weight:400;color:var(--ink);background:#fff;box-shadow:none;width:100%;max-width:100%}
+.p45-camp input:focus,.p45-camp select:focus,.p45-toc input:focus,.p45-cauta-form input:focus,.p45-cauta-carti input:focus{border-color:#8C93A0;outline:2px solid #F28C78;outline-offset:1px}
+.p45-camp .p45-gri{font-weight:400;font-size:13px}
+.p45-bife{display:flex;flex-wrap:wrap;gap:6px 16px;font-weight:400;margin-bottom:6px}
+.p45-bife label{display:flex;align-items:center;gap:6px;min-height:30px}
+.p45-radio{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.p45-radio legend{font-weight:600;margin-bottom:6px;padding:0}
+.p45-radio label{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:30px}
+.p45-radio input[type=date]{height:36px;border:1px solid var(--linie2);border-radius:8px;padding:0 8px}
+.p45-bifa{display:flex;align-items:center;gap:8px;font-weight:400}
+.p45-cauta-form{display:flex;gap:8px;align-items:center;margin:0 0 16px;max-width:520px}
+.p45-padding .p45-cauta-form{margin:0}
+.p45-form-rand{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end}
+.p45-cap-sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.p45-cap-sec .p45-h2{margin:0}
+.p45-cap-sec p{margin:2px 0 0}
+.p45-butoane-mici{display:flex;gap:8px;flex-wrap:wrap}
+
+/* lista de cărți cu bife */
+.p45-cauta-carti{display:block;margin-bottom:8px;max-width:420px}
+.p45-lista-carti{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;max-height:380px;overflow:auto;padding:2px}
+.p45-carte-bifa{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--linie);border-radius:12px;font-weight:400;cursor:pointer;background:#fff}
+.p45-carte-bifa[hidden]{display:none}
+.p45-carte-bifa:hover{background:#FAFAF8}
+.p45-carte-bifa input{flex:0 0 auto}
+.p45-carte-bifa img,.p45-carte-bifa .p45-mini-gol{width:30px;height:40px;object-fit:cover;border-radius:3px;flex:0 0 auto}
+.p45-carte-bifa span{display:flex;flex-direction:column;min-width:0}
+.p45-carte-bifa strong{font-weight:600;line-height:1.3}
+.p45-carte-bifa .p45-gri{font-size:12.5px}
+.p45-carte-bifa:has(input:checked){border-color:#E9A596;background:#FFF7F5}
+.p45-lista-pasi{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;list-style:disc}
+
+/* editor carte */
+.p45-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:34px 20px;border:2px dashed #CFCAC0;border-radius:14px;background:#FAFAF8;cursor:pointer;position:relative}
+.p45-drop[hidden]{display:none}
+.p45-drop:hover,.p45-drop-activ{border-color:var(--rosu);background:#FFF7F5}
+.p45-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.p45-drop .dashicons{font-size:34px;width:34px;height:34px;color:var(--muted)}
+.p45-drop strong{font-size:15px}
+.p45-drop .p45-gri{max-width:520px;font-size:13px}
+.p45-fisier{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;background:#F6F5F2}
+.p45-fisier[hidden]{display:none}
+.p45-fisier-txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.p45-fisier-txt strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p45-pdf-icon{width:44px;height:52px;border-radius:8px;background:#fff;border:1px solid var(--linie);color:var(--rosu-text);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:0 0 auto}
+.p45-verificari{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px 16px}
+.p45-verificari li{position:relative;padding-left:26px;line-height:1.45}
+.p45-verificari li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%}
+.p45-v-ok::before{background:#0F766E url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat}
+.p45-v-info::before{background:#92400E url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M12 7v6M12 17h.01'/%3E%3C/svg%3E") center/12px no-repeat}
+.p45-toc{min-width:620px}
+.p45-toc td{padding:6px 8px}
+.p45-toc input{height:38px}
+.p45-x{width:36px;height:36px;border-radius:8px;border:0;background:transparent;color:var(--muted);font-size:20px;cursor:pointer}
+.p45-x:hover{background:#FFF1EE;color:var(--rosu-text)}
+.p45-coperta-prev{display:flex;align-items:center;justify-content:center;min-height:160px;border-radius:12px;background:#F6F5F2;margin-bottom:12px;padding:12px}
+.p45-coperta-prev img{max-width:100%;max-height:300px;border-radius:8px;box-shadow:0 8px 20px rgba(26,29,36,.15)}
+.p45-progres{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.p45-progres[hidden]{display:none}
+.p45-progres-rand{display:flex;justify-content:space-between;gap:12px}
+.p45-bara{height:10px;border-radius:99px;background:#EFECE6;overflow:hidden}
+.p45-bara span{display:block;height:100%;width:0;background:#0F766E;border-radius:99px;transition:width .25s}
+.p45-paginare .page-numbers{display:inline-block;padding:6px 10px;margin-right:4px;border-radius:8px;border:1px solid var(--linie2);text-decoration:none;color:var(--ink)}
+.p45-paginare .page-numbers.current{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media (max-width:782px){
+  .p45-h1{font-size:22px}
+  .p45-card{padding:16px}
+}

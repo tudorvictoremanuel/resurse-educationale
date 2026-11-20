@@ -51,10 +51,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .intrare-stanga .marca-txt span{color:#C9D1E0}
 .intrare-stanga .marca img{background:#fff;border-radius:12px;padding:6px;width:48px;height:44px}
 .intrare-stanga .marca{align-self:center}
-.intrare-titlu{max-width:560px}
+.intrare-titlu{max-width:560px;align-self:center;text-align:center}
 .intrare-titlu h2{margin:0 0 16px;font-size:44px;font-weight:800;line-height:1.1}
 .intrare-titlu p{margin:0;font-size:18px;color:#D9DEE8}
-.colaj{position:relative;height:380px;margin-top:auto;max-width:600px}
+.colaj{position:relative;height:380px;margin-top:auto;width:580px;max-width:100%;align-self:center}
 .colaj img{position:absolute;object-fit:cover;border-radius:12px;background:#fff}
 .colaj .c1{left:0;top:50px;width:210px;height:285px;transform:rotate(-7deg);box-shadow:0 24px 48px rgba(0,0,0,.35)}
 .colaj .c2{left:170px;top:0;width:240px;height:326px;z-index:2;box-shadow:0 28px 56px rgba(0,0,0,.4)}

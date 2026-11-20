@@ -26,7 +26,7 @@ p45cd_inceput( 'Intră în cont', 'pagina-intrare' );
 		<?php p45cd_marca( false ); ?>
 		<div class="intrare-titlu">
 			<h2>Cărțile tale, pe tabla din clasă.</h2>
-			<p>Fiecare carte comandată la Paralela 45 vine și în variantă digitală. O deschizi pe tabla interactivă, desenezi peste pagini și îți păstrezi notele de la o oră la alta.</p>
+			<p>Fiecare carte comandată la Editura Paralela 45 vine și în variantă digitală. O deschizi pe tabla interactivă, desenezi peste pagini și îți păstrezi notele de la o oră la alta.</p>
 		</div>
 		<div class="colaj" aria-hidden="true">
 			<img class="c1" src="<?php echo esc_url( $coperte[0] ); ?>" alt="">

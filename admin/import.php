@@ -103,7 +103,7 @@ function p45cd_pagina_import() {
 							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="p45-inline">
 								<?php wp_nonce_field( 'p45_import_sterge_pachete' ); ?>
 								<input type="hidden" name="action" value="p45_import_sterge_pachete">
-								<p class="p45-gri">Toate manualele sunt în platformă. Arhivele nu mai sunt necesare pe server.</p>
+								<p class="p45-gri"><?php echo $carti_pachet ? 'Toate manualele sunt în platformă. Arhivele nu mai sunt necesare pe server.' : 'Arhivele de pe server nu conțin manuale care pot fi citite.'; ?></p>
 								<button type="submit" class="p45-btn p45-btn-alb">Șterge arhivele de pe server</button>
 							</form>
 						<?php endif; ?>
@@ -302,7 +302,8 @@ function p45cd_pagina_import() {
 			try {
 				while (true) {
 					progres('p45-prof', de_la, total, 'Import profesori…');
-					const r = await cere('import/profesori', { de_la, lot: 40, jwt });
+					// Nu numi parametrul „jwt”: Simple JWT Login citește un parametru cu acest nume ca token și respinge cererea.
+					const r = await cere('import/profesori', { de_la, lot: 40, copiaza_setari_jwt: jwt });
 					de_la = r.urmatorul;
 					if (r.gata) break;
 				}

@@ -724,7 +724,7 @@ function p45cd_rest_import_profesori( $req ) {
 
 	if ( 0 === $de_la ) {
 		delete_option( 'p45cd_import_progres' );
-		if ( $req->get_param( 'jwt' ) && ! empty( $date['jwt'] ) ) {
+		if ( $req->get_param( 'copiaza_setari_jwt' ) && ! empty( $date['jwt'] ) ) {
 			update_option( 'simple_jwt_login_settings', $date['jwt'] );
 		}
 	}
@@ -752,7 +752,7 @@ function p45cd_rest_import_profesori( $req ) {
 				'profesori'  => $total,
 				'original'   => isset( $info['original'] ) ? (string) $info['original'] : '',
 				'statistici' => $sum,
-				'jwt'        => (bool) ( $req->get_param( 'jwt' ) && ! empty( $date['jwt'] ) ),
+				'jwt'        => (bool) ( $req->get_param( 'copiaza_setari_jwt' ) && ! empty( $date['jwt'] ) ),
 			),
 			false
 		);

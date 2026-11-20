@@ -39,7 +39,6 @@ p45cd_inceput( 'Intră în cont', 'pagina-intrare' );
 		<div class="intrare-form">
 			<div>
 				<h1 id="titlu-intrare">Intră în cont</h1>
-				<p class="muted">Folosește emailul cu care ai comandat cărțile.</p>
 			</div>
 			<?php if ( ! empty( $_GET['iesit'] ) && ! $eroare ) : ?>
 				<p class="info" role="status">Ai ieșit din cont.</p>
@@ -65,7 +64,6 @@ p45cd_inceput( 'Intră în cont', 'pagina-intrare' );
 				</div>
 				<button type="submit" class="btn btn-rosu btn-mare">Intră în cont</button>
 			</form>
-			<p class="nota-gri">Contul îl creează editura, odată cu comanda cărților. Nu ai primit emailul cu datele de acces? Scrie-ne la <?php echo p45cd_email_suport_html(); // phpcs:ignore ?>.</p>
 		</div>
 	</section>
 </div>

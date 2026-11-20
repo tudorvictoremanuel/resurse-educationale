@@ -10,19 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once P45CD_DIR . 'templates/parts.php';
 
-/* Coperte pentru colaj: ultimele 3 cărți publicate cu copertă, altfel copertele implicite. */
-$coperte = array();
-foreach ( get_posts( array( 'post_type' => 'p45_carte', 'post_status' => 'publish', 'posts_per_page' => 12, 'fields' => 'ids' ) ) as $cid ) {
-	if ( p45cd_cale_imagine( $cid, 'c' ) ) {
-		$coperte[] = p45cd_url_imagine( $cid, 'c' );
-	}
-	if ( count( $coperte ) >= 3 ) {
-		break;
-	}
-}
-if ( count( $coperte ) < 3 ) {
-	$coperte = array( P45CD_URL . 'assets/img/coperta-1.webp', P45CD_URL . 'assets/img/coperta-2.webp', P45CD_URL . 'assets/img/coperta-3.webp' );
-}
+/* Coperte pentru colaj: cele trei coperte alese de editură (assets/img/coperta-1..3.webp).
+   Nu le înlocuim cu copertele cărților din platformă: ultimele cărți adăugate nu sunt neapărat cele de prezentare. */
+$coperte = apply_filters(
+	'p45cd_coperte_intrare',
+	array( P45CD_URL . 'assets/img/coperta-1.webp', P45CD_URL . 'assets/img/coperta-2.webp', P45CD_URL . 'assets/img/coperta-3.webp' )
+);
 $redirect = isset( $_REQUEST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_REQUEST['redirect_to'] ) ) : '';
 $email    = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 

@@ -44,7 +44,7 @@ function p45cd_sfarsit( $js = array() ) {
 function p45cd_marca( $link = true ) {
 	$tag = $link ? 'a href="' . esc_url( p45cd_url( 'biblioteca' ) ) . '"' : 'span';
 	$end = $link ? 'a' : 'span';
-	echo '<' . $tag . ' class="marca"><img src="' . p45cd_asset( 'img/logo.png' ) . '" alt="" width="36" height="32"><span class="marca-txt"><b>Paralela 45</b><span>Cărți digitale</span></span></' . $end . '>'; // phpcs:ignore
+	echo '<' . $tag . ' class="marca"><img src="' . p45cd_asset( 'img/logo.png' ) . '" alt="" width="36" height="32"><span class="marca-txt"><b>Editura Paralela 45</b><span>Cărți digitale</span></span></' . $end . '>'; // phpcs:ignore
 }
 
 function p45cd_icon( $nume, $marime = 20 ) {

@@ -50,6 +50,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .intrare-stanga{flex:1 1 520px;min-width:0;background:var(--bleumarin);color:#fff;padding:56px;display:flex;flex-direction:column;gap:40px;overflow:hidden}
 .intrare-stanga .marca-txt span{color:#C9D1E0}
 .intrare-stanga .marca img{background:#fff;border-radius:12px;padding:6px;width:48px;height:44px}
+.intrare-stanga .marca{align-self:center}
 .intrare-titlu{max-width:560px}
 .intrare-titlu h2{margin:0 0 16px;font-size:44px;font-weight:800;line-height:1.1}
 .intrare-titlu p{margin:0;font-size:18px;color:#D9DEE8}
